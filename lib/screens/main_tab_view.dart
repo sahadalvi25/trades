@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
@@ -7,6 +8,7 @@ import 'portfolios_screen/portfolios_screen.dart';
 import 'news_screen/news_screen.dart';
 import 'my_assets_screen/my_assets_screen.dart';
 import 'profile_screen/profile_screen.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class MainTabView extends StatefulWidget {
   final ThemeProvider themeProvider;
@@ -25,18 +27,18 @@ class _MainTabViewState extends State<MainTabView> {
 
   final List<String> _tabTitles = [
     'Home',
-    'Portfolios',
+    'Portfolio',
     'News',
-    'My Assets',
+    'Assets',
     'Profile',
   ];
 
   final List<IconData> _tabIcons = [
-    CupertinoIcons.house_fill,
-    CupertinoIcons.chart_pie_fill,
-    CupertinoIcons.news_solid,
-    CupertinoIcons.briefcase_fill,
-    CupertinoIcons.person_fill,
+    HugeIcons.strokeRoundedHome01,
+    HugeIcons.strokeRoundedCoins01,
+    HugeIcons.strokeRoundedNews,
+    HugeIcons.strokeRoundedWallet02,
+    HugeIcons.strokeRoundedUser,
   ];
 
   @override
@@ -49,18 +51,20 @@ class _MainTabViewState extends State<MainTabView> {
         ThemeHelper.updateSystemBrightness(systemBrightness);
         
         return CupertinoTabScaffold(
+        resizeToAvoidBottomInset: false,
           backgroundColor: ThemeHelper.background,
           tabBar: CupertinoTabBar(
-            backgroundColor: ThemeHelper.surfaceVariant,
+            backgroundColor: ThemeHelper.background,
             border: Border(
               top: BorderSide(
                 color: ThemeHelper.border,
                 width: 0.5,
               ),
             ),
-            activeColor: ThemeHelper.primary,
+            activeColor: ThemeHelper.textPrimary,
             inactiveColor: ThemeHelper.textSecondary,
             currentIndex: _selectedIndex,
+           height: 64,
             onTap: (index) {
               HapticFeedback.selectionClick();
               setState(() {
@@ -69,19 +73,43 @@ class _MainTabViewState extends State<MainTabView> {
             },
             items: List.generate(_tabTitles.length, (index) {
               return BottomNavigationBarItem(
-                icon: Icon(
-                  index == 0 ? CupertinoIcons.house : 
-                  index == 1 ? CupertinoIcons.chart_pie :
-                  index == 2 ? CupertinoIcons.news :
-                  index == 3 ? CupertinoIcons.briefcase :
-                  CupertinoIcons.person,
-                  size: 20,
+                icon: Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: _selectedIndex == index 
+                              ? ThemeHelper.textPrimary
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Icon(
+                          _tabIcons[index],
+                          size: 18,
+                          color: _selectedIndex == index 
+                                    ? (ThemeHelper.isDarkMode 
+                                        ? const Color(0xFF000000) 
+                                        : const Color(0xFFFFFFFF))
+                                    : ThemeHelper.textSecondary,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        _tabTitles[index],
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                          color: _selectedIndex == index 
+                              ? ThemeHelper.textPrimary
+                              : ThemeHelper.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                activeIcon: Icon(
-                  _tabIcons[index],
-                  size: 20,
-                ),
-                label: _tabTitles[index],
               );
             }),
           ),

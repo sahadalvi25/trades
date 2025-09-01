@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 import 'widgets/premium_banner.dart';
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return CupertinoPageScaffold(
           backgroundColor: ThemeHelper.background,
           child: SafeArea(
-            child: Column(
+            child: Stack(
               children: [
                 // Main Content
                 Expanded(
@@ -65,11 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 // Search Bar at Bottom
-                SearchBarWidget(themeProvider: widget.themeProvider),
-              ],
-            ),
-          ),
-        );
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: SearchBarWidget(themeProvider: widget.themeProvider),
+                ),
+            ])
+            ));
       },
     );
   }
