@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../theme/app_theme.dart';
-import '../theme/text_styles.dart';
+import 'package:trades/constants/theme_helper.dart';
 
 class StockCard extends StatelessWidget {
   final String symbol;
@@ -25,17 +24,16 @@ class StockCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = CupertinoTheme.of(context).brightness == Brightness.dark;
-    
+  
     return Container(
       width: 180,
       margin: const EdgeInsets.only(right: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkSecondaryBackground : AppTheme.lightSecondaryBackground,
+        color: ThemeHelper.surfaceVariant,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isDark ? AppTheme.darkTertiaryBackground : AppTheme.lightTertiaryBackground,
+          color: ThemeHelper.border,
           width: 1,
         ),
       ),
@@ -49,14 +47,14 @@ class StockCard extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: isDark ? AppTheme.darkTertiaryBackground : AppTheme.lightTertiaryBackground,
+                  color: ThemeHelper.border,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
                   child: Text(
                     symbol[0],
-                    style: AppTextStyles.calloutMedium.copyWith(
-                      color: isDark ? AppTheme.darkPrimary : AppTheme.lightPrimary,
+                    style: ThemeHelper.caption.copyWith(
+                      color: ThemeHelper.primary,
                     ),
                   ),
                 ),
@@ -68,8 +66,8 @@ class StockCard extends StatelessWidget {
                   children: [
                     Text(
                       companyName,
-                      style: AppTextStyles.footnote.copyWith(
-                        color: isDark ? AppTheme.darkPrimary : AppTheme.lightPrimary,
+                      style: ThemeHelper.caption.copyWith(
+                        color: ThemeHelper.textPrimary,
                         fontWeight: FontWeight.w500,
                       ),
                       maxLines: 1,
@@ -77,8 +75,8 @@ class StockCard extends StatelessWidget {
                     ),
                     Text(
                       symbol,
-                      style: AppTextStyles.caption2.copyWith(
-                        color: isDark ? AppTheme.darkSecondary : AppTheme.lightSecondary,
+                      style: ThemeHelper.caption.copyWith(
+                        color: ThemeHelper.textSecondary,
                       ),
                     ),
                   ],
@@ -102,7 +100,7 @@ class StockCard extends StatelessWidget {
                     LineChartBarData(
                       spots: _generateChartData(),
                       isCurved: true,
-                      color: isPositive ? AppTheme.green : AppTheme.red,
+                      color: isPositive ? ThemeHelper.success : ThemeHelper.error,
                       barWidth: 2,
                       dotData: const FlDotData(show: false),
                       belowBarData: BarAreaData(show: false),
@@ -121,8 +119,8 @@ class StockCard extends StatelessWidget {
           // Price
           Text(
             price,
-            style: AppTextStyles.headline.copyWith(
-              color: isDark ? AppTheme.darkPrimary : AppTheme.lightPrimary,
+            style: ThemeHelper.heading1.copyWith(
+              color: ThemeHelper.textPrimary,
             ),
           ),
           
@@ -133,15 +131,15 @@ class StockCard extends StatelessWidget {
             children: [
               Text(
                 change,
-                style: AppTextStyles.caption1.copyWith(
-                  color: isPositive ? AppTheme.green : AppTheme.red,
+                style: ThemeHelper.caption.copyWith(
+                  color: isPositive ? ThemeHelper.success : ThemeHelper.error,
                 ),
               ),
               const SizedBox(width: 4),
               Text(
                 changePercent,
-                style: AppTextStyles.caption1.copyWith(
-                  color: isPositive ? AppTheme.green : AppTheme.red,
+                style: ThemeHelper.caption.copyWith(
+                  color: isPositive ? ThemeHelper.success : ThemeHelper.error,
                 ),
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'theme/app_theme.dart';
+import 'package:trades/constants/theme_helper.dart';
+import 'package:trades/constants/theme_provider.dart';
 import 'screens/main_tab_view.dart';
 
 void main() {
@@ -14,24 +15,36 @@ class TradesApp extends StatefulWidget {
 }
 
 class _TradesAppState extends State<TradesApp> {
-  bool isDarkMode = true; // Default to dark mode as per screenshot
+  late ThemeProvider _themeProvider;
 
-  void toggleTheme() {
-    setState(() {
-      isDarkMode = !isDarkMode;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _themeProvider = ThemeProvider();
+    // Initialize ThemeHelper with the theme provider
+    ThemeHelper.initialize(_themeProvider);
+    // Initialize the theme provider
+    _themeProvider.initialize();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: 'Trades',
-      theme: isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
-      home: MainTabView(
-        isDarkMode: isDarkMode,
-        onThemeToggle: toggleTheme,
-      ),
-      debugShowCheckedModeBanner: false,
+    return ListenableBuilder(
+      listenable: _themeProvider,
+      builder: (context, child) {
+        // Update system brightness
+        final systemBrightness = MediaQuery.platformBrightnessOf(context);
+        ThemeHelper.updateSystemBrightness(systemBrightness);
+        
+        return CupertinoApp(
+          title: 'Trades',
+          theme: ThemeHelper.cupertinoTheme,
+          home: MainTabView(
+            themeProvider: _themeProvider,
+          ),
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }
