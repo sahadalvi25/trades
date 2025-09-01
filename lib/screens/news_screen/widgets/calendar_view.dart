@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
+import 'package:trades/widgets/common/decorations.dart';
 
 class CalendarView extends StatelessWidget {
   final ThemeProvider themeProvider;
@@ -116,7 +118,6 @@ class CalendarView extends StatelessWidget {
   Widget _buildEventCard(CalendarEvent event) {
     return Container(
       margin: const EdgeInsets.only(bottom: AppConstants.paddingM),
-      padding: const EdgeInsets.all(AppConstants.paddingM),
       decoration: BoxDecoration(
         color: ThemeHelper.cardBackground,
         borderRadius: BorderRadius.circular(AppConstants.radiusM),
@@ -125,137 +126,141 @@ class CalendarView extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header row with time, title, and icons
-          Row(
-            children: [
-              // Time
-              if (event.isImportant)
+      child:  AppDecorations.premiumCard(
+        padding: EdgeInsets.zero,
+        innerPadding:  const EdgeInsets.all(AppConstants.paddingM),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header row with time, title, and icons
+            Row(
+              children: [
+                // Time
+                if (event.isImportant)
+                  Container(
+                    width: 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: ThemeHelper.info,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                if (event.isImportant) const SizedBox(width: 8),
+                Text(
+                  event.time,
+                  style: ThemeHelper.caption.copyWith(
+                    color: ThemeHelper.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const Spacer(),
+                // Country flag (simplified as text for now)
+                Text(
+                  event.country,
+                  style: ThemeHelper.caption.copyWith(
+                    color: ThemeHelper.textSecondary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // Dot separator
                 Container(
-                  width: 6,
-                  height: 6,
+                  width: 4,
+                  height: 4,
                   decoration: BoxDecoration(
-                    color: ThemeHelper.info,
+                    color: ThemeHelper.textSecondary,
                     shape: BoxShape.circle,
                   ),
                 ),
-              if (event.isImportant) const SizedBox(width: 8),
-              Text(
-                event.time,
-                style: ThemeHelper.caption.copyWith(
-                  color: ThemeHelper.textPrimary,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const Spacer(),
-              // Country flag (simplified as text for now)
-              Text(
-                event.country,
-                style: ThemeHelper.caption.copyWith(
+                const SizedBox(width: 8),
+                // Bell icon
+                Icon(
+                  HugeIcons.strokeRoundedNotification01,
+                  size: 16,
                   color: ThemeHelper.textSecondary,
-                  fontWeight: FontWeight.w600,
                 ),
-              ),
-              const SizedBox(width: 8),
-              // Dot separator
-              Container(
-                width: 4,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: ThemeHelper.textSecondary,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              const SizedBox(width: 8),
-              // Bell icon
-              Icon(
-                CupertinoIcons.bell,
-                size: 16,
-                color: ThemeHelper.textSecondary,
-              ),
-            ],
-          ),
-          const SizedBox(height: AppConstants.paddingS),
-          // Event title
-          Text(
-            event.title,
-            style: ThemeHelper.body2.copyWith(
-              color: ThemeHelper.textPrimary,
-              fontWeight: FontWeight.w500,
+              ],
             ),
-          ),
-          const SizedBox(height: AppConstants.paddingS),
-          // Event details row
-          Row(
-            children: [
-              // Actual
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Actual:',
-                      style: ThemeHelper.caption.copyWith(
-                        color: ThemeHelper.textSecondary,
-                      ),
-                    ),
-                    Text(
-                      event.actual.isEmpty ? '-' : event.actual,
-                      style: ThemeHelper.caption.copyWith(
-                        color: event.actual == 'Soon' ? ThemeHelper.error : ThemeHelper.textPrimary,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
+            const SizedBox(height: AppConstants.paddingS),
+            // Event title
+            Text(
+              event.title,
+              style: ThemeHelper.body2.copyWith(
+                color: ThemeHelper.textPrimary,
+                fontWeight: FontWeight.w500,
               ),
-              // Forecast
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Forecast:',
-                      style: ThemeHelper.caption.copyWith(
-                        color: ThemeHelper.textSecondary,
+            ),
+            const SizedBox(height: AppConstants.paddingS),
+            // Event details row
+            Row(
+              children: [
+                // Actual
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Actual:',
+                        style: ThemeHelper.caption.copyWith(
+                          color: ThemeHelper.textSecondary,
+                        ),
                       ),
-                    ),
-                    Text(
-                      event.forecast.isEmpty ? '-' : event.forecast,
-                      style: ThemeHelper.caption.copyWith(
-                        color: ThemeHelper.textPrimary,
-                        fontWeight: FontWeight.w500,
+                      Text(
+                        event.actual.isEmpty ? '-' : event.actual,
+                        style: ThemeHelper.caption.copyWith(
+                          color: event.actual == 'Soon' ? ThemeHelper.error : ThemeHelper.textPrimary,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              // Prior
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Prior:',
-                      style: ThemeHelper.caption.copyWith(
-                        color: ThemeHelper.textSecondary,
+                // Forecast
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Forecast:',
+                        style: ThemeHelper.caption.copyWith(
+                          color: ThemeHelper.textSecondary,
+                        ),
                       ),
-                    ),
-                    Text(
-                      event.prior.isEmpty ? '-' : event.prior,
-                      style: ThemeHelper.caption.copyWith(
-                        color: ThemeHelper.textPrimary,
-                        fontWeight: FontWeight.w500,
+                      Text(
+                        event.forecast.isEmpty ? '-' : event.forecast,
+                        style: ThemeHelper.caption.copyWith(
+                          color: ThemeHelper.textPrimary,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                // Prior
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Prior:',
+                        style: ThemeHelper.caption.copyWith(
+                          color: ThemeHelper.textSecondary,
+                        ),
+                      ),
+                      Text(
+                        event.prior.isEmpty ? '-' : event.prior,
+                        style: ThemeHelper.caption.copyWith(
+                          color: ThemeHelper.textPrimary,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -171,7 +171,7 @@ class _PortfoliosScreenState extends State<PortfoliosScreen> {
           // Main title
           Text(
             'Portfolios',
-            style: ThemeHelper.body1.copyWith(
+            style: ThemeHelper.heading1.copyWith(
               color: ThemeHelper.textPrimary,
               fontWeight: FontWeight.w300,
             ),

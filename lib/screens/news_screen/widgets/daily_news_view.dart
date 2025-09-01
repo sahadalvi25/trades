@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
+import 'package:trades/widgets/common/decorations.dart';
 
 class DailyNewsView extends StatelessWidget {
   final ThemeProvider themeProvider;
@@ -64,111 +65,115 @@ class DailyNewsView extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header with ticker, change, and time
-          Padding(
-            padding: const EdgeInsets.all(AppConstants.paddingM),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Left side: ticker and change
-                Row(
-                  children: [
-                    Container(
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: ThemeHelper.textPrimary,
-                        shape: BoxShape.circle,
+      child: AppDecorations.premiumCard(
+        padding: EdgeInsets.zero,
+        innerPadding: EdgeInsets.zero,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header with ticker, change, and time
+            Padding(
+              padding: const EdgeInsets.all(AppConstants.paddingM),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Left side: ticker and change
+                  Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          color: ThemeHelper.textPrimary,
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      article.ticker,
-                      style: ThemeHelper.body2.copyWith(
-                        color: ThemeHelper.textPrimary,
-                        fontWeight: FontWeight.w600,
+                      const SizedBox(width: 8),
+                      Text(
+                        article.ticker,
+                        style: ThemeHelper.body2.copyWith(
+                          color: ThemeHelper.textPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      '${article.change > 0 ? '+' : ''}${article.change.toStringAsFixed(2)}%',
-                      style: ThemeHelper.caption.copyWith(
-                        color: article.change >= 0 ? ThemeHelper.success : ThemeHelper.error,
-                        fontWeight: FontWeight.w600,
+                      const SizedBox(width: 8),
+                      Text(
+                        '${article.change > 0 ? '+' : ''}${article.change.toStringAsFixed(2)}%',
+                        style: ThemeHelper.caption.copyWith(
+                          color: article.change >= 0 ? ThemeHelper.success : ThemeHelper.error,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                // Right side: time ago
-                Row(
-                  children: [
-                    Container(
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: ThemeHelper.info,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      article.timeAgo,
-                      style: ThemeHelper.caption.copyWith(
-                        color: ThemeHelper.textSecondary,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          // News image
-          SizedBox(
-            width: double.infinity,
-            height: 180,
-            child: Image.asset(
-              article.imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: ThemeHelper.secondaryCardBackground,
-                  child: Icon(
-                    CupertinoIcons.photo,
-                    size: 48,
-                    color: ThemeHelper.textSecondary,
+                    ],
                   ),
-                );
-              },
-            ),
-          ),
-          // Headline and source
-          Padding(
-            padding: const EdgeInsets.all(AppConstants.paddingM),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  article.headline,
-                  style: ThemeHelper.body2.copyWith(
-                    color: ThemeHelper.textPrimary,
-                    fontWeight: FontWeight.w500,
-                    height: 1.4,
+                  // Right side: time ago
+                  Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          color: ThemeHelper.info,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        article.timeAgo,
+                        style: ThemeHelper.caption.copyWith(
+                          color: ThemeHelper.textSecondary,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: AppConstants.paddingS),
-                Text(
-                  article.source,
-                  style: ThemeHelper.caption.copyWith(
-                    color: ThemeHelper.textSecondary,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+            // News image
+            SizedBox(
+              width: double.infinity,
+              height: 180,
+              child: Image.asset(
+                article.imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: ThemeHelper.secondaryCardBackground,
+                    child: Icon(
+                      CupertinoIcons.photo,
+                      size: 48,
+                      color: ThemeHelper.textSecondary,
+                    ),
+                  );
+                },
+              ),
+            ),
+            // Headline and source
+            Padding(
+              padding: const EdgeInsets.all(AppConstants.paddingM),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    article.headline,
+                    style: ThemeHelper.body2.copyWith(
+                      color: ThemeHelper.textPrimary,
+                      fontWeight: FontWeight.w500,
+                      height: 1.4,
+                    ),
+                  ),
+                  const SizedBox(height: AppConstants.paddingS),
+                  Text(
+                    article.source,
+                    style: ThemeHelper.caption.copyWith(
+                      color: ThemeHelper.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
