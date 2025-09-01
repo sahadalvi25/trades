@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 /// App-wide constants and configurations
 
@@ -587,4 +588,22 @@ class AppResponsive {
   static double safeBottomPadding(BuildContext context) {
     return MediaQuery.of(context).padding.bottom;
   }
+}
+
+/// Formats a number with comma separators for thousands
+/// Example: 7423.78 becomes "7,423.78"
+String formatNumberWithCommas(double number) {
+  final formatter = NumberFormat('#,##0.00', 'en_US');
+  return formatter.format(number);
+}
+
+/// Formats a currency value with dollar sign and comma separators
+/// Example: 7423.78 becomes "\$7,423.78"
+String formatCurrency(double amount) {
+  final formatter = NumberFormat.currency(
+    symbol: '\$',
+    decimalDigits: 2,
+    locale: 'en_US',
+  );
+  return formatter.format(amount);
 }

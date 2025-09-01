@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 import 'package:trades/widgets/common/custom_image.dart';
+import 'package:trades/widgets/common/mini_line_chart.dart';
 
 class StockListItem extends StatelessWidget {
   final String symbol;
   final String companyName;
-  final String price;
+  final double price;
   final String change;
   final String changePercent;
   final bool isPositive;
@@ -95,29 +95,10 @@ class StockListItem extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: AppConstants.paddingXS),
-                    child: SizedBox(
+                    child: MiniLineChart(
+                      data: ChartDataHelper.generateTrendData(isPositive),
+                      isPositive: isPositive,
                       height: 40,
-                      child: LineChart(
-                        LineChartData(
-                          gridData: const FlGridData(show: false),
-                          titlesData: const FlTitlesData(show: false),
-                          borderData: FlBorderData(show: false),
-                          lineBarsData: [
-                            LineChartBarData(
-                              spots: _generateChartData(),
-                              isCurved: true,
-                              color: isPositive ? ThemeHelper.success : ThemeHelper.error,
-                              barWidth: 1.5,
-                              dotData: const FlDotData(show: false),
-                              belowBarData: BarAreaData(show: false),
-                            ),
-                          ],
-                          minX: 0,
-                          maxX: 6,
-                          minY: 0,
-                          maxY: 10,
-                        ),
-                      ),
                     ),
                   ),
                 ),
@@ -129,7 +110,7 @@ class StockListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    price,
+                    formatCurrency(price),
                     style: ThemeHelper.body2.copyWith(
                       color: ThemeHelper.textPrimary,
                       fontWeight: FontWeight.w600,
@@ -163,27 +144,5 @@ class StockListItem extends StatelessWidget {
     );
   }
 
-  List<FlSpot> _generateChartData() {
-    if (isPositive) {
-      return const [
-        FlSpot(0, 3),
-        FlSpot(1, 2.5),
-        FlSpot(2, 4),
-        FlSpot(3, 3.5),
-        FlSpot(4, 5),
-        FlSpot(5, 4.5),
-        FlSpot(6, 6),
-      ];
-    } else {
-      return const [
-        FlSpot(0, 6),
-        FlSpot(1, 5.5),
-        FlSpot(2, 4),
-        FlSpot(3, 4.5),
-        FlSpot(4, 3),
-        FlSpot(5, 3.5),
-        FlSpot(6, 2),
-      ];
-    }
-  }
+
 }

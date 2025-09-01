@@ -87,6 +87,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                 ),
                 height: 25,
                 child: ListView.builder(
+                  padding: const EdgeInsets.only(right: AppConstants.paddingM),
                   scrollDirection: Axis.horizontal,
                   itemCount: tabs.length,
                   itemBuilder: (context, index) {
@@ -98,7 +99,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                         });
                       },
                       child: Container(
-                        margin: EdgeInsets.only(right: index < tabs.length - 1 ? 24 : 0),
+                        margin: EdgeInsets.only(right: index < tabs.length - 1 ? 20 : 0),
                         child: Column(
                           children: [
                             Text(
@@ -143,7 +144,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                     StockListItem(
                       symbol: 'AAPL',
                       companyName: 'Apple Inc',
-                      price: '\$169.75',
+                      price: 169.75,
                       change: '+6.09',
                       changePercent: '+0.30%',
                       isPositive: true,
@@ -154,7 +155,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                     StockListItem(
                       symbol: 'GOOG',
                       companyName: 'Google',
-                      price: '\$89.75',
+                      price: 89.75,
                       change: '+6.09',
                       changePercent: '+0.30%',
                       isPositive: true,
@@ -165,7 +166,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                     StockListItem(
                       symbol: 'NVDA',
                       companyName: 'NVIDIA',
-                      price: '\$122.75',
+                      price: 122.75,
                       change: '-6.09',
                       changePercent: '-0.30%',
                       isPositive: false,
@@ -176,7 +177,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                     StockListItem(
                       symbol: 'TSLA',
                       companyName: 'Tesla Inc',
-                      price: '\$39.12',
+                      price: 39.12,
                       change: '-6.09',
                       changePercent: '-0.30%',
                       isPositive: false,
@@ -187,7 +188,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                     StockListItem(
                       symbol: 'AMD',
                       companyName: 'AMD',
-                      price: '\$969.75',
+                      price: 969.75,
                       change: '+6.09',
                       changePercent: '+0.30%',
                       isPositive: true,

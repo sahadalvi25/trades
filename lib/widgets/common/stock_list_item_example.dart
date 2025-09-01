@@ -33,7 +33,7 @@ class StockListItemExample extends StatelessWidget {
             StockListItem(
               symbol: 'AAPL',
               companyName: 'Apple Inc.',
-              price: '\$150.25',
+              price: 150.25,
               change: '+2.15',
               changePercent: '+1.45%',
               isPositive: true,
@@ -46,7 +46,7 @@ class StockListItemExample extends StatelessWidget {
             StockListItem(
               symbol: 'GOOGL',
               companyName: 'Alphabet Inc.',
-              price: '\$2,850.75',
+              price: 2850.75,
               change: '-15.30',
               changePercent: '-0.53%',
               isPositive: false,
@@ -59,7 +59,7 @@ class StockListItemExample extends StatelessWidget {
             StockListItem(
               symbol: 'TSLA',
               companyName: 'Tesla Inc.',
-              price: '\$245.80',
+              price: 245.80,
               change: '+8.45',
               changePercent: '+3.56%',
               isPositive: true,
@@ -72,7 +72,7 @@ class StockListItemExample extends StatelessWidget {
             StockListItem(
               symbol: 'NVDA',
               companyName: 'NVIDIA Corporation',
-              price: '\$485.90',
+              price: 485.90,
               change: '+12.75',
               changePercent: '+2.70%',
               isPositive: true,
@@ -85,7 +85,7 @@ class StockListItemExample extends StatelessWidget {
             StockListItem(
               symbol: 'MSFT',
               companyName: 'Microsoft Corporation',
-              price: '\$380.45',
+              price: 380.45,
               change: '-5.20',
               changePercent: '-1.35%',
               isPositive: false,
@@ -98,7 +98,7 @@ class StockListItemExample extends StatelessWidget {
             StockListItem(
               symbol: 'AMZN',
               companyName: 'Amazon.com Inc.',
-              price: '\$145.30',
+              price: 145.30,
               change: '+3.15',
               changePercent: '+2.22%',
               isPositive: true,
@@ -111,7 +111,7 @@ class StockListItemExample extends StatelessWidget {
             StockListItem(
               symbol: 'META',
               companyName: 'Meta Platforms Inc.',
-              price: '\$320.15',
+              price: 320.15,
               change: '+7.80',
               changePercent: '+2.50%',
               isPositive: true,

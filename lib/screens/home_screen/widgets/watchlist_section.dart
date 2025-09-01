@@ -4,6 +4,7 @@ import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 import 'package:trades/widgets/common/decorations.dart';
 import 'package:trades/widgets/common/custom_image.dart';
+import 'package:trades/widgets/common/mini_line_chart.dart';
 
 class WatchlistSection extends StatelessWidget {
   final ThemeProvider themeProvider;
@@ -85,7 +86,7 @@ class WatchlistSection extends StatelessWidget {
                   _buildWatchlistCard(
                     symbol: 'AAPL',
                     companyName: 'Apple Inc',
-                    price: '\$7423.78',
+                    price: 7423.78,
                     change: '+6.09',
                     changePercent: '+0.30%',
                     isPositive: true,
@@ -95,7 +96,7 @@ class WatchlistSection extends StatelessWidget {
                   _buildWatchlistCard(
                     symbol: 'GOOGL',
                     companyName: 'Alphabet Inc',
-                    price: '\$185.50',
+                    price: 185.50,
                     change: '-2.15',
                     changePercent: '-1.15%',
                     isPositive: false,
@@ -105,7 +106,7 @@ class WatchlistSection extends StatelessWidget {
                   _buildWatchlistCard(
                     symbol: 'MSFT',
                     companyName: 'Microsoft Corp',
-                    price: '\$415.22',
+                    price: 415.22,
                     change: '+8.45',
                     changePercent: '+2.08%',
                     isPositive: true,
@@ -115,7 +116,7 @@ class WatchlistSection extends StatelessWidget {
                   _buildWatchlistCard(
                     symbol: 'TSLA',
                     companyName: 'Tesla Inc',
-                    price: '\$248.50',
+                    price: 248.50,
                     change: '-12.30',
                     changePercent: '-4.72%',
                     isPositive: false,
@@ -125,7 +126,7 @@ class WatchlistSection extends StatelessWidget {
                   _buildWatchlistCard(
                     symbol: 'AMZN',
                     companyName: 'Amazon.com Inc',
-                    price: '\$178.12',
+                    price: 178.12,
                     change: '+3.25',
                     changePercent: '+1.86%',
                     isPositive: true,
@@ -135,7 +136,7 @@ class WatchlistSection extends StatelessWidget {
                   _buildWatchlistCard(
                     symbol: 'META',
                     companyName: 'Meta Platforms',
-                    price: '\$485.58',
+                    price: 485.58,
                     change: '+15.67',
                     changePercent: '+3.34%',
                     isPositive: true,
@@ -145,7 +146,7 @@ class WatchlistSection extends StatelessWidget {
                   _buildWatchlistCard(
                     symbol: 'NVDA',
                     companyName: 'NVIDIA Corp',
-                    price: '\$875.28',
+                    price: 875.28,
                     change: '+22.45',
                     changePercent: '+2.63%',
                     isPositive: true,
@@ -164,7 +165,7 @@ class WatchlistSection extends StatelessWidget {
   Widget _buildWatchlistCard({
     required String symbol,
     required String companyName,
-    required String price,
+    required double price,
     required String change,
     required String changePercent,
     required bool isPositive,
@@ -224,9 +225,10 @@ class WatchlistSection extends StatelessWidget {
           // Mini Chart
           SizedBox(
             height: 30,
-            child: CustomPaint(
-              painter: MiniChartPainter(isPositive: isPositive),
-              child: Container(),
+            child: MiniLineChart(
+              data: ChartDataHelper.generateTrendData(isPositive),
+              isPositive: isPositive,
+              height: 30,
             ),
           ),
           
@@ -234,7 +236,7 @@ class WatchlistSection extends StatelessWidget {
           
           // Price
           Text(
-            price,
+            formatCurrency(price),
             style: ThemeHelper.caption.copyWith(
               color: ThemeHelper.textPrimary,
               fontWeight: FontWeight.w600,
@@ -267,41 +269,4 @@ class WatchlistSection extends StatelessWidget {
       ),
     );
   }
-}
-
-class MiniChartPainter extends CustomPainter {
-  final bool isPositive;
-  
-  MiniChartPainter({required this.isPositive});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = isPositive ? ThemeHelper.success : ThemeHelper.error
-      ..strokeWidth = 1.5
-      ..style = PaintingStyle.stroke;
-
-    final path = Path();
-    
-    // Generate some sample chart data
-    final points = isPositive 
-      ? [0.8, 0.6, 0.7, 0.5, 0.3, 0.4, 0.2]
-      : [0.2, 0.4, 0.3, 0.5, 0.7, 0.6, 0.8];
-    
-    for (int i = 0; i < points.length; i++) {
-      final x = (i / (points.length - 1)) * size.width;
-      final y = points[i] * size.height;
-      
-      if (i == 0) {
-        path.moveTo(x, y);
-      } else {
-        path.lineTo(x, y);
-      }
-    }
-    
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
