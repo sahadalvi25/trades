@@ -171,7 +171,7 @@ class _PortfoliosScreenState extends State<PortfoliosScreen> {
           // Main title
           Text(
             'Portfolios',
-            style: ThemeHelper.heading1.copyWith(
+            style: ThemeHelper.body1.copyWith(
               color: ThemeHelper.textPrimary,
               fontWeight: FontWeight.w300,
             ),
@@ -184,19 +184,22 @@ class _PortfoliosScreenState extends State<PortfoliosScreen> {
               return GestureDetector(
                 onTap: () => setState(() => _selectedFilterIndex = index),
                 child: Container(
-                  margin: EdgeInsets.only(right: index < _filters.length - 1 ? 12 : 0),
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  margin: EdgeInsets.only(right: index < _filters.length - 1 ? 0 : 0),
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   decoration: BoxDecoration(
-                    color: isSelected 
-                        ? ThemeHelper.surfaceVariant 
-                        : CupertinoColors.systemBackground.withOpacity(0),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: isSelected 
-                          ? ThemeHelper.border 
-                          : CupertinoColors.systemBackground.withOpacity(0),
-                      width: 1,
-                    ),
+                    gradient: LinearGradient(
+                      colors: [
+                        isSelected 
+                            ? ThemeHelper.secondaryCardBackground
+                            : CupertinoColors.systemBackground.withOpacity(0),
+                        isSelected 
+                            ? ThemeHelper.secondaryCardBackground.withOpacity(0.5)
+                            : CupertinoColors.systemBackground.withOpacity(0),
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      ),
+                    borderRadius: BorderRadius.circular(AppConstants.borderRadius),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -235,19 +238,16 @@ class _PortfoliosScreenState extends State<PortfoliosScreen> {
 
   void _onViewAll(String category) {
     // TODO: Navigate to category view
-    print('View all $category');
   }
 
   void _onPortfolioTap() {
     // TODO: Navigate to portfolio detail
-    print('Portfolio tapped');
   }
 
   void _onFavoriteToggle(int index, bool isFavorited) {
     setState(() {
       // Update the favorite status for the specific portfolio
       // This is a simplified implementation - in a real app you'd update the data source
-      print('Portfolio $index favorite toggled to $isFavorited');
     });
   }
 }

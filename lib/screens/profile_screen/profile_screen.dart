@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
+import 'package:trades/screens/home_screen/widgets/premium_banner.dart';
+import 'widgets/index.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   final ThemeProvider themeProvider;
 
   const ProfileScreen({
@@ -11,9 +14,18 @@ class ProfileScreen extends StatelessWidget {
   });
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool _isDarkMode = true;
+  bool _alertsEnabled = true;
+  String _selectedLanguage = 'En';
+
+  @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: themeProvider,
+      listenable: widget.themeProvider,
       builder: (context, child) {
         // Update system brightness
         final systemBrightness = MediaQuery.platformBrightnessOf(context);
@@ -21,61 +33,117 @@ class ProfileScreen extends StatelessWidget {
         
         return CupertinoPageScaffold(
           backgroundColor: ThemeHelper.background,
-          navigationBar: CupertinoNavigationBar(
-            backgroundColor: ThemeHelper.surfaceVariant,
-            middle: Text(
-              'Profile',
-              style: ThemeHelper.heading1.copyWith(
-                color: ThemeHelper.textPrimary,
-              ),
-            ),
-          ),
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  // Theme Toggle
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: ThemeHelper.surfaceVariant,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              children: [
+                // Profile Header with gradient background
+                ProfileHeader(themeProvider: widget.themeProvider),
+                // Settings Content
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
                       children: [
-                        Text(
-                          'Dark Mode',
-                          style: ThemeHelper.caption.copyWith(
-                            color: ThemeHelper.textPrimary,
+                        // Your Plan Section
+                        SizedBox(
+                          width: double.infinity,
+                          child: PremiumBanner(themeProvider: widget.themeProvider)),
+                        const SizedBox(height: AppConstants.paddingM),
+                        // Settings Sections
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+                          child: SettingsSection(
+                            themeProvider: widget.themeProvider,
+                            isDarkMode: _isDarkMode,
+                            onDarkModeChanged: (value) => setState(() => _isDarkMode = value),
+                            alertsEnabled: _alertsEnabled,
+                            onAlertsChanged: (value) => setState(() => _alertsEnabled = value),
+                            selectedLanguage: _selectedLanguage,
+                            onLanguageChanged: (value) => setState(() => _selectedLanguage = value),
                           ),
-                        ),
-                        CupertinoSwitch(
-                          value: themeProvider.isDarkMode,
-                          onChanged: (_) => themeProvider.toggleTheme(),
-                          activeColor: ThemeHelper.primary,
                         ),
                       ],
                     ),
                   ),
-                  
-                  const SizedBox(height: 24),
-                  
-                  Center(
-                    child: Text(
-                      'Profile Screen',
-                      style: ThemeHelper.heading2.copyWith(
-                        color: ThemeHelper.textPrimary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildYourPlanSection() {
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingM),
+      decoration: BoxDecoration(
+        color: ThemeHelper.cardBackground,
+        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        border: Border.all(
+          color: ThemeHelper.border,
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          // Diamond icon
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: ThemeHelper.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+            ),
+            child: Icon(
+              CupertinoIcons.star_fill,
+              color: ThemeHelper.primary,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: AppConstants.paddingM),
+          // Plan details
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Your Plan',
+                      style: ThemeHelper.body2.copyWith(
+                        color: ThemeHelper.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(width: AppConstants.paddingS),
+                    Container(
+                      width: 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: ThemeHelper.primary,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppConstants.paddingXS),
+                Text(
+                  'Premium',
+                  style: ThemeHelper.body1.copyWith(
+                    color: ThemeHelper.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Chevron
+          Icon(
+            CupertinoIcons.chevron_right,
+            color: ThemeHelper.textSecondary,
+            size: 16,
+          ),
+        ],
+      ),
     );
   }
 }

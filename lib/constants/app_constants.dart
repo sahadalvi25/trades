@@ -94,7 +94,7 @@ class AppConstants {
 /// Light theme color palette
 class LightColors {
   // Brand Colors
-  static const Color primary = Color(0xFF0BA5EC);
+  static const Color primary = Color(0xFF2E90FA);
   static const Color background = Color(0xFFFFFFFF);
 
   // Base Colors
@@ -113,15 +113,16 @@ class LightColors {
   static const Color black10 = Color(0xFFE6E6E6);
 
   // Semantic Colors
-  static const Color success = Color(0xFF0BA5EC);
-  static const Color error = Color(0xFFE53935);
-  static const Color warning = Color(0xFF0BA5EC);
-  static const Color info = Color(0xFF0BA5EC);
+  static const Color success =Color(0xFF82F6BD);
+  static const Color error = Color(0xFFE53935);   
+  static const Color warning = Color(0xFFF9A825); 
+  static const Color info = Color(0xFF2E90FA);  
 
   // Background Colors
   static const Color surface = Color(0xFFFFFFFF);
   static const Color surfaceVariant = Color(0xFFF5F5F5);
   static const Color cardBackground = Color(0xFFFFFFFF);
+  static const Color secondaryCardBackground = Color(0xFFF5F5F5);
 
   // Text Colors
   static const Color textPrimary = Color(0xFF212121);
@@ -146,7 +147,7 @@ class LightColors {
 /// Dark theme color palette
 class DarkColors {
   // Brand Colors
-  static const Color primary = Color(0xFF2E90FA);
+  static const Color primary = Color(0xFF0BA5EC);
   static const Color background = Color.fromARGB(255, 0, 0, 0);
 
   // Base Colors
@@ -165,15 +166,16 @@ class DarkColors {
   static const Color white10 = Color(0xFF1A1A1A);
 
   // Semantic Colors
-  static const Color success =Color(0xFF82F6BD);
-  static const Color error = Color(0xFFE53935);   // Already good - a strong red
-  static const Color warning = Color(0xFFF9A825); // Amber-ish yellow
-  static const Color info = Color(0xFF2E90FA);    // A nice blue for informational
+  static const Color success =Color.fromARGB(255, 23, 255, 143);
+  static const Color error = Color.fromARGB(255, 255, 31, 28);   
+  static const Color warning = Color(0xFFF9A825); 
+  static const Color info = Color(0xFF2E90FA);    
 
   // Background Colors     // Deep near-black
   static const Color surface = Color(0xFF121820);          // Dark blue-black
   static const Color surfaceVariant = Color(0xFF18191D);   // Slightly lighter for cards
   static const Color cardBackground = Color(0xFF181E27);   // Consistent with surfaceVariant
+  static const Color secondaryCardBackground = Color.fromARGB(255, 37, 46, 59);   // Consistent with surfaceVariant
 
   // Text Colors
   static const Color textPrimary = Color(0xFFFFFFFF);
@@ -216,11 +218,11 @@ class AppColors {
   static const Color black20 = Color(0xFFCCCCCC);
   static const Color black10 = Color(0xFFE6E6E6);
 
-  // Semantic Colors - Using blue for all
-  static const Color success = Color(0xFF0BA5EC);
-  static const Color error = Color(0xFFE53935);
-  static const Color warning = Color(0xFF0BA5EC);
-  static const Color info = Color(0xFF0BA5EC);
+   // Semantic Colors
+  static const Color success =Color(0xFF82F6BD);
+  static const Color error = Color(0xFFE53935);   
+  static const Color warning = Color(0xFFF9A825); 
+  static const Color info = Color(0xFF2E90FA);    
 
   // Background Colors
   static const Color surface = Color(0xFFFFFFFF);

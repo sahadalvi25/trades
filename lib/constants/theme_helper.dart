@@ -42,6 +42,7 @@ class ThemeHelper {
   static Color get background => isDarkMode ? DarkColors.background : LightColors.background;
   static Color get surface => isDarkMode ? DarkColors.surface : LightColors.surface;
   static Color get surfaceVariant => isDarkMode ? DarkColors.surfaceVariant : LightColors.surfaceVariant;
+  static Color get secondaryCardBackground => isDarkMode ? DarkColors.secondaryCardBackground : LightColors.secondaryCardBackground;
   static Color get cardBackground => isDarkMode ? DarkColors.cardBackground : LightColors.cardBackground;
   
   static Color get textPrimary => isDarkMode ? DarkColors.textPrimary : LightColors.textPrimary;
