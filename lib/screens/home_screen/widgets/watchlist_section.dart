@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 import 'package:trades/constants/decorations.dart';
@@ -20,13 +21,13 @@ class WatchlistSection extends StatelessWidget {
         final systemBrightness = MediaQuery.platformBrightnessOf(context);
         ThemeHelper.updateSystemBrightness(systemBrightness);
         
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Section Header
-              Row(
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Section Header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -49,52 +50,56 @@ class WatchlistSection extends StatelessWidget {
                   ),
                 ],
               ),
-              
-              const SizedBox(height: 12),
-              
-              // Watchlist Cards
-              SizedBox(
-                height: 168,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    // Add Button
-                    Container(
-                      width: 60,
-                      margin: const EdgeInsets.only(right: 12),
-                      decoration: AppDecorations.surfaceVariant(),
-                      child: Center(
-                        child: Icon(
-                          CupertinoIcons.plus,
-                          color: ThemeHelper.textSecondary,
-                          size: 24,
-                        ),
+            ),
+            
+            const SizedBox(height: 12),
+            
+            // Watchlist Cards
+            SizedBox(
+              height: 168,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  // Add Button
+                  Container(
+                    width: 52,
+                    margin: const EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                      color: ThemeHelper.textPrimary.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        CupertinoIcons.plus,
+                        color: ThemeHelper.textInverse,
+                        size: 24,
                       ),
                     ),
-                    
-                    // Apple Stock Cards
-                    _buildWatchlistCard(
-                      symbol: 'AAPL',
-                      companyName: 'Apple Inc',
-                      price: '\$7423.78',
-                      change: '+6.09',
-                      changePercent: '+0.30%',
-                      isPositive: true,
-                    ),
-                    
-                    _buildWatchlistCard(
-                      symbol: 'AAPL',
-                      companyName: 'Apple Inc',
-                      price: '\$7423.78',
-                      change: '+6.09',
-                      changePercent: '+0.30%',
-                      isPositive: true,
-                    ),
-                  ],
-                ),
+                  ),
+                  
+                  // Apple Stock Cards
+                  _buildWatchlistCard(
+                    symbol: 'AAPL',
+                    companyName: 'Apple Inc',
+                    price: '\$7423.78',
+                    change: '+6.09',
+                    changePercent: '+0.30%',
+                    isPositive: true,
+                  ),
+                  
+                  _buildWatchlistCard(
+                    symbol: 'AAPL',
+                    companyName: 'Apple Inc',
+                    price: '\$7423.78',
+                    change: '+6.09',
+                    changePercent: '+0.30%',
+                    isPositive: true,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

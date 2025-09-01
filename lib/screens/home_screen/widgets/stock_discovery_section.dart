@@ -41,9 +41,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                 children: [
                   Text(
                     'Find your next\ninvestment',
-                    style: ThemeHelper.heading2.copyWith(
-                      color: ThemeHelper.textPrimary,
-                    ),
+                    style: ThemeHelper.heading2
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),

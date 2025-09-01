@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 import 'widgets/premium_banner.dart';
@@ -43,27 +42,25 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Stack(
               children: [
                 // Main Content
-                Expanded(
-                  child: CustomScrollView(
-                    controller: _scrollController,
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: PremiumBanner(themeProvider: widget.themeProvider),
-                      ),
-                      // Watchlist Section
-                      SliverToBoxAdapter(
-                        child: WatchlistSection(themeProvider: widget.themeProvider),
-                      ),
-                      // Stock Discovery Section
-                      SliverToBoxAdapter(
-                        child: StockDiscoverySection(themeProvider: widget.themeProvider),
-                      ),
-                      // Bottom padding
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 100),
-                      ),
-                    ],
-                  ),
+                CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: PremiumBanner(themeProvider: widget.themeProvider),
+                    ),
+                    // Watchlist Section
+                    SliverToBoxAdapter(
+                      child: WatchlistSection(themeProvider: widget.themeProvider),
+                    ),
+                    // Stock Discovery Section
+                    SliverToBoxAdapter(
+                      child: StockDiscoverySection(themeProvider: widget.themeProvider),
+                    ),
+                    // Bottom padding
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 100),
+                    ),
+                  ],
                 ),
                 // Search Bar at Bottom
                 Positioned(
@@ -72,8 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   right: 0,
                   child: SearchBarWidget(themeProvider: widget.themeProvider),
                 ),
-            ])
-            ));
+              ],
+            ),
+          ),
+        );
       },
     );
   }

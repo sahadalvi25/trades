@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 
@@ -34,7 +35,7 @@ class PremiumBanner extends StatelessWidget {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppConstants.borderRadius),
           ),
           child: Stack(
             clipBehavior: Clip.hardEdge,
@@ -55,13 +56,13 @@ class PremiumBanner extends StatelessWidget {
               
               // Content
               Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(AppConstants.paddingM),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Premium Plans upto 60% off',
-                      style: ThemeHelper.heading3.copyWith(
+                      style: ThemeHelper.body1.copyWith(
                         fontSize: 16,
                         color: const Color.fromARGB(255, 255, 247, 225), // Light orange/pale gold
                         fontWeight: FontWeight.w600,

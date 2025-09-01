@@ -35,7 +35,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             children: [
               Expanded(
                 child: AppDecorations.premiumCard(
-                  padding: const EdgeInsets.all(1),
+                  padding: const EdgeInsets.all(0.5),
                   innerPadding: EdgeInsets.zero,
                   radius: 100,
                   borderRadius: 100,

@@ -15,6 +15,13 @@ abstract class EntitleMents {
 class GoogleMapsApiKey {
   static const String googleMapsApiKey = 'AIzaSyCfrP47NXQBMPlR3Af---w3pLA9Qk6tsGc';
 }
+  
+class FontFamily {
+   //static const String heading = 'UberMove';
+  static const String heading = 'Ivy-Presto-Text';
+  //static const String heading = 'TestTiemposFine';
+  static const String body = 'SF-Pro';
+}
 
 class AppConstants {
   // App Information
@@ -51,8 +58,31 @@ class AppConstants {
   static const double smallPadding = 8.0;
   static const double largePadding = 24.0;
   static const double borderRadius = 12.0;
+  static const double borderRadiusCircle = 100.0;
   static const double iconSize = 24.0;
   static const double bottomNavHeight = 49.0;
+
+  // Spacing
+  static const double paddingXS = 4.0;
+  static const double paddingS = 8.0;
+  static const double paddingM = 16.0;
+  static const double paddingL = 24.0;
+  static const double paddingXL = 32.0;
+  
+  // Border Radius
+  static const double radiusS = 8.0;
+  static const double radiusM = 12.0;
+  static const double radiusL = 16.0;
+  static const double radiusXL = 24.0;
+  
+  // Font Sizes
+  static const double fontSizeXS = 12.0;
+  static const double fontSizeS = 14.0;
+  static const double fontSizeM = 16.0;
+  static const double fontSizeL = 18.0;
+  static const double fontSizeXL = 20.0;
+  static const double fontSizeXXL = 24.0;
+  static const double fontSizeXXXL = 32.0;
 
   // Error Messages
   static const String genericError = 'Something went wrong. Please try again.';
@@ -214,29 +244,36 @@ class AppColors {
 class LightTextStyles {
   static const TextStyle heading1 = TextStyle(
     fontSize: 32,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.bold,
+    letterSpacing: 0.25,
+    height: 1.32,
+    fontWeight: FontWeight.w300,
     color: LightColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle heading2 = TextStyle(
     fontSize: 24,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.bold,
+    letterSpacing: 0.25,
+    height: 1.32,
+    fontWeight: FontWeight.w300,
     color: LightColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle heading3 = TextStyle(
     fontSize: 20,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.w600,
+    letterSpacing: 0.25,
+    height: 1.32,
+    fontWeight: FontWeight.w300,
     color: LightColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle body1 = TextStyle(
     fontSize: 16,
     letterSpacing: -0.2,
     height: 1.5,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: LightColors.textPrimary,
   );
@@ -244,6 +281,7 @@ class LightTextStyles {
   static const TextStyle body2 = TextStyle(
     fontSize: 14,
     letterSpacing: -0.2,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: LightColors.textSecondary,
   );
@@ -251,6 +289,7 @@ class LightTextStyles {
   static const TextStyle caption = TextStyle(
     fontSize: 12,
     letterSpacing: -0.2,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: LightColors.textSecondary,
   );
@@ -258,7 +297,8 @@ class LightTextStyles {
   static const TextStyle button = TextStyle(
     fontSize: 16,
     letterSpacing: -0.2,
-    fontWeight: FontWeight.w600,
+    fontFamily: FontFamily.body,
+    fontWeight: FontWeight.w300,
     color: LightColors.surface,
   );
 }
@@ -267,28 +307,34 @@ class LightTextStyles {
 class DarkTextStyles {
   static const TextStyle heading1 = TextStyle(
     fontSize: 32,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.bold,
+    letterSpacing: 0.25,
+    height: 1.32,
     color: DarkColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle heading2 = TextStyle(
     fontSize: 24,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.bold,
+    letterSpacing: 0.25,
+    height: 1.32,
+    fontWeight: FontWeight.w300,
     color: DarkColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle heading3 = TextStyle(
     fontSize: 20,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.w600,
+    letterSpacing: 0.25,
+    height: 1.32,
+    fontWeight: FontWeight.w300,
     color: DarkColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle body1 = TextStyle(
     fontSize: 16,
     letterSpacing: -0.2,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: DarkColors.textPrimary,
   );
@@ -296,6 +342,7 @@ class DarkTextStyles {
   static const TextStyle body2 = TextStyle(
     fontSize: 14,
     letterSpacing: -0.2,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: DarkColors.textSecondary,
   );
@@ -303,6 +350,7 @@ class DarkTextStyles {
   static const TextStyle caption = TextStyle(
     fontSize: 12,
     letterSpacing: -0.2,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: DarkColors.textSecondary,
   );
@@ -310,37 +358,47 @@ class DarkTextStyles {
   static const TextStyle button = TextStyle(
     fontSize: 16,
     letterSpacing: -0.2,
-    fontWeight: FontWeight.w600,
+    fontFamily: FontFamily.body,
+    fontWeight: FontWeight.w300,
     color: DarkColors.surface,
   );
 }
+
+
 
 /// Legacy AppTextStyles class for backward compatibility
 class AppTextStyles {
   static const TextStyle heading1 = TextStyle(
     fontSize: 32,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.bold,
+    letterSpacing: 0.25,
+    height: 1.32,
+    fontWeight: FontWeight.w300,
     color: AppColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle heading2 = TextStyle(
     fontSize: 24,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.bold,
+    letterSpacing: 0.25,
+    height: 1.32,
+    fontWeight: FontWeight.w300,
     color: AppColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle heading3 = TextStyle(
     fontSize: 20,
-    letterSpacing: 0.5,
-    fontWeight: FontWeight.w600,
+    letterSpacing: 0.25,
+    height: 1.32,
+    fontWeight: FontWeight.w300,
     color: AppColors.textPrimary,
+    fontFamily: FontFamily.heading,
   );
 
   static const TextStyle body1 = TextStyle(
     fontSize: 16,
     letterSpacing: -0.2,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: AppColors.textPrimary,
   );
@@ -348,6 +406,7 @@ class AppTextStyles {
   static const TextStyle body2 = TextStyle(
     fontSize: 14,
     letterSpacing: -0.2,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
   );
@@ -355,6 +414,7 @@ class AppTextStyles {
   static const TextStyle caption = TextStyle(
     fontSize: 12,
     letterSpacing: -0.2,
+    fontFamily: FontFamily.body,
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
   );
@@ -362,7 +422,8 @@ class AppTextStyles {
   static const TextStyle button = TextStyle(
     fontSize: 16,
     letterSpacing: -0.2,
-    fontWeight: FontWeight.w600,
+    fontFamily: FontFamily.body,
+    fontWeight: FontWeight.w300,
     color: AppColors.surface,
   );
 }
@@ -380,28 +441,35 @@ class LightTheme {
         primaryColor: LightColors.textPrimary,
         textStyle: TextStyle(
           color: LightColors.textPrimary,
+          fontFamily: FontFamily.body,
         ),
         actionTextStyle: TextStyle(
           color: LightColors.primary,
+          fontFamily: FontFamily.body,
         ),
         tabLabelTextStyle: TextStyle(
           color: LightColors.textSecondary,
+          fontFamily: FontFamily.body,
         ),
         navTitleTextStyle: TextStyle(
           color: LightColors.textPrimary,
           fontSize: 17,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w300,
+          fontFamily: FontFamily.body,
         ),
         navLargeTitleTextStyle: TextStyle(
           color: LightColors.textPrimary,
           fontSize: 34,
           fontWeight: FontWeight.bold,
+          fontFamily: FontFamily.body,
         ),
         pickerTextStyle: TextStyle(
           color: LightColors.textPrimary,
+          fontFamily: FontFamily.body,
         ),
         dateTimePickerTextStyle: TextStyle(
           color: LightColors.textPrimary,
+          fontFamily: FontFamily.body,
         ),
       ),
     );
@@ -420,29 +488,36 @@ class DarkTheme {
       textTheme: CupertinoTextThemeData(
         primaryColor: DarkColors.primary,
         textStyle: TextStyle(
+          fontFamily: FontFamily.body,
           color: DarkColors.textPrimary,
         ),
         actionTextStyle: TextStyle(
+          fontFamily: FontFamily.body,
           color: DarkColors.primary,
         ),
         tabLabelTextStyle: TextStyle(
+          fontFamily: FontFamily.body,
           color: DarkColors.textSecondary,
         ),
         navTitleTextStyle: TextStyle(
           color: DarkColors.textPrimary,
           fontSize: 17,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w300,
+          fontFamily: FontFamily.body,
         ),
         navLargeTitleTextStyle: TextStyle(
           color: DarkColors.textPrimary,
           fontSize: 34,
           fontWeight: FontWeight.bold,
-        ),
+          fontFamily: FontFamily.body,
+          ),
         pickerTextStyle: TextStyle(
           color: DarkColors.textPrimary,
+          fontFamily: FontFamily.body,
         ),
         dateTimePickerTextStyle: TextStyle(
           color: DarkColors.textPrimary,
+          fontFamily: FontFamily.body,
         ),
       ),
     );
