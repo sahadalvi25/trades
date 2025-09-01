@@ -7,8 +7,6 @@ import 'package:trades/widgets/common/decorations.dart';
 
 class SettingsSection extends StatelessWidget {
   final ThemeProvider themeProvider;
-  final bool isDarkMode;
-  final Function(bool) onDarkModeChanged;
   final bool alertsEnabled;
   final Function(bool) onAlertsChanged;
   final String selectedLanguage;
@@ -17,8 +15,6 @@ class SettingsSection extends StatelessWidget {
   const SettingsSection({
     super.key,
     required this.themeProvider,
-    required this.isDarkMode,
-    required this.onDarkModeChanged,
     required this.alertsEnabled,
     required this.onAlertsChanged,
     required this.selectedLanguage,
@@ -170,8 +166,14 @@ class SettingsSection extends StatelessWidget {
 
   Widget _buildThemeToggle() {
     return CupertinoSwitch(
-      value: isDarkMode,
-      onChanged: onDarkModeChanged,
+      value: themeProvider.isDarkMode,
+      onChanged: (value) {
+        if (value) {
+          themeProvider.setDarkTheme();
+        } else {
+          themeProvider.setLightTheme();
+        }
+      },
       activeColor: ThemeHelper.primary,
       trackColor: ThemeHelper.border,
       thumbColor: ThemeHelper.textPrimary,

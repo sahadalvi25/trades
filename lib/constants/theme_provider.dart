@@ -6,7 +6,7 @@ import '../constants/app_constants.dart';
 class ThemeProvider extends ChangeNotifier {
   static const String _themeKey = 'app_theme';
   
-  String _currentTheme = AppConstants.lightTheme;
+  String _currentTheme = AppConstants.darkTheme;
   bool _isInitialized = false;
 
   /// Get the current theme mode
@@ -30,12 +30,12 @@ class ThemeProvider extends ChangeNotifier {
     
     try {
       final prefs = await SharedPreferences.getInstance();
-      _currentTheme = prefs.getString(_themeKey) ?? AppConstants.lightTheme;
+      _currentTheme = prefs.getString(_themeKey) ?? AppConstants.darkTheme;
       _isInitialized = true;
       notifyListeners();
     } catch (e) {
       debugPrint('Error initializing theme provider: $e');
-      _currentTheme = AppConstants.lightTheme;
+      _currentTheme = AppConstants.darkTheme;
       _isInitialized = true;
       notifyListeners();
     }

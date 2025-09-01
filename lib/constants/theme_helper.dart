@@ -22,7 +22,7 @@ class ThemeHelper {
 
   /// Check if dark mode is currently active
   static bool get isDarkMode {
-    if (_themeProvider == null || _systemBrightness == null) return false;
+    if (_themeProvider == null || _systemBrightness == null) return true; // Default to dark theme
     return _themeProvider!.shouldUseDarkMode(_systemBrightness!);
   }
 
@@ -32,7 +32,7 @@ class ThemeHelper {
   /// Get the current effective theme
   static String get currentTheme {
     if (_themeProvider == null || _systemBrightness == null) {
-      return AppConstants.lightTheme;
+      return AppConstants.darkTheme; // Default to dark theme
     }
     return _themeProvider!.getEffectiveTheme(_systemBrightness!);
   }

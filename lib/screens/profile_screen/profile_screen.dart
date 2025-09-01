@@ -18,7 +18,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool _isDarkMode = true;
   bool _alertsEnabled = true;
   String _selectedLanguage = 'En';
 
@@ -53,8 +52,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
                           child: SettingsSection(
                             themeProvider: widget.themeProvider,
-                            isDarkMode: _isDarkMode,
-                            onDarkModeChanged: (value) => setState(() => _isDarkMode = value),
                             alertsEnabled: _alertsEnabled,
                             onAlertsChanged: (value) => setState(() => _alertsEnabled = value),
                             selectedLanguage: _selectedLanguage,
