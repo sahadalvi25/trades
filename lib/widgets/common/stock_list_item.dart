@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
+import 'package:trades/widgets/common/custom_image.dart';
 
 class StockListItem extends StatelessWidget {
   final String symbol;
@@ -13,6 +15,7 @@ class StockListItem extends StatelessWidget {
   final bool hasChart;
   final bool isLast;
   final ThemeProvider themeProvider;
+  final String? companyLogoUrl;
 
   const StockListItem({
     super.key,
@@ -25,6 +28,7 @@ class StockListItem extends StatelessWidget {
     required this.themeProvider,
     this.hasChart = false,
     this.isLast = false,
+    this.companyLogoUrl,
   });
 
   @override
@@ -49,16 +53,16 @@ class StockListItem extends StatelessWidget {
           child: Row(
             children: [
               // Company Icon
-              Container(
+              CustomImage(
+                imageUrl: companyLogoUrl,
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: _getCompanyColor(),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: _getCompanyIcon(),
-                ),
+                borderRadius: AppConstants.borderRadiusCircle,
+                placeholderImage: 'assets/images/trades_logo.png',
+                fit: BoxFit.cover,
+                showShimmer: true,
+                onImageLoaded: () => debugPrint('Company logo loaded for $symbol'),
+                onImageError: () => debugPrint('Company logo failed for $symbol'),
               ),
               
               const SizedBox(width: 12),
@@ -70,11 +74,12 @@ class StockListItem extends StatelessWidget {
                   children: [
                     Text(
                       companyName,
-                      style: ThemeHelper.caption.copyWith(
+                      style: ThemeHelper.body2.copyWith(
                         color: ThemeHelper.textPrimary,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
+                    const SizedBox(height: 4),
                     Text(
                       symbol,
                       style: ThemeHelper.caption.copyWith(
@@ -87,28 +92,32 @@ class StockListItem extends StatelessWidget {
               
               // Chart
               if (hasChart)
-                SizedBox(
-                  width: 80,
-                  height: 40,
-                  child: LineChart(
-                    LineChartData(
-                      gridData: const FlGridData(show: false),
-                      titlesData: const FlTitlesData(show: false),
-                      borderData: FlBorderData(show: false),
-                      lineBarsData: [
-                        LineChartBarData(
-                          spots: _generateChartData(),
-                          isCurved: true,
-                          color: isPositive ? ThemeHelper.success : ThemeHelper.error,
-                          barWidth: 1.5,
-                          dotData: const FlDotData(show: false),
-                          belowBarData: BarAreaData(show: false),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: AppConstants.paddingXS),
+                    child: SizedBox(
+                      height: 40,
+                      child: LineChart(
+                        LineChartData(
+                          gridData: const FlGridData(show: false),
+                          titlesData: const FlTitlesData(show: false),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: _generateChartData(),
+                              isCurved: true,
+                              color: isPositive ? ThemeHelper.success : ThemeHelper.error,
+                              barWidth: 1.5,
+                              dotData: const FlDotData(show: false),
+                              belowBarData: BarAreaData(show: false),
+                            ),
+                          ],
+                          minX: 0,
+                          maxX: 6,
+                          minY: 0,
+                          maxY: 10,
                         ),
-                      ],
-                      minX: 0,
-                      maxX: 6,
-                      minY: 0,
-                      maxY: 10,
+                      ),
                     ),
                   ),
                 ),
@@ -121,11 +130,12 @@ class StockListItem extends StatelessWidget {
                 children: [
                   Text(
                     price,
-                    style: ThemeHelper.caption.copyWith(
+                    style: ThemeHelper.body2.copyWith(
                       color: ThemeHelper.textPrimary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -151,84 +161,6 @@ class StockListItem extends StatelessWidget {
         );
       },
     );
-  }
-
-  Color _getCompanyColor() {
-    switch (symbol) {
-      case 'AAPL':
-        return const Color(0xFF000000);
-      case 'GOOG':
-        return const Color(0xFF4285F4);
-      case 'NVDA':
-        return const Color(0xFF76B900);
-      case 'TSLA':
-        return const Color(0xFFE31837);
-      case 'AMD':
-        return const Color(0xFF000000);
-      default:
-        return const Color(0xFF000000);
-    }
-  }
-
-  Widget _getCompanyIcon() {
-    switch (symbol) {
-      case 'AAPL':
-        return Text(
-          '',
-          style: ThemeHelper.caption.copyWith(
-            color: CupertinoColors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        );
-      case 'GOOG':
-        return Text(
-          'G',
-          style: ThemeHelper.caption.copyWith(
-            color: CupertinoColors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        );
-      case 'NVDA':
-        return Container(
-          width: 20,
-          height: 20,
-          decoration: const BoxDecoration(
-            color: CupertinoColors.white,
-            shape: BoxShape.circle,
-          ),
-          child: const Center(
-            child: Icon(
-              CupertinoIcons.eye,
-              color: Color(0xFF76B900),
-              size: 12,
-            ),
-          ),
-        );
-      case 'TSLA':
-        return Text(
-          'T',
-          style: ThemeHelper.caption.copyWith(
-            color: CupertinoColors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        );
-      case 'AMD':
-        return Text(
-          'A',
-          style: ThemeHelper.caption.copyWith(
-            color: CupertinoColors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        );
-      default:
-        return Text(
-          symbol[0],
-          style: ThemeHelper.caption.copyWith(
-            color: CupertinoColors.white,
-          ),
-        );
-    }
   }
 
   List<FlSpot> _generateChartData() {

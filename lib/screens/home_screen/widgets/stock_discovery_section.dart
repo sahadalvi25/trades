@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:trades/constants/decorations.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:trades/constants/app_constants.dart';
+import 'package:trades/widgets/common/decorations.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 import '../../../widgets/common/stock_list_item.dart';
@@ -19,7 +21,7 @@ class StockDiscoverySection extends StatefulWidget {
 class _StockDiscoverySectionState extends State<StockDiscoverySection> {
   int selectedTabIndex = 0;
   
-  final List<String> tabs = ['Stocks', 'Indices', 'Futures', 'Forex', 'Crypto'];
+  final List<String> tabs = ['Stocks', 'Indices', 'Futures', 'Forex', 'Crypto', 'Commodities'];
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +32,23 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
         final systemBrightness = MediaQuery.platformBrightnessOf(context);
         ThemeHelper.updateSystemBrightness(systemBrightness);
         
-        return Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Section Header
-              Row(
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Section Header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Find your next\ninvestment',
                     style: ThemeHelper.heading2
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: ThemeHelper.surfaceVariant,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                  AppDecorations.premiumCard(
+                    borderRadius: 100,
+                    padding: const EdgeInsets.all(0.25),
+                    innerPadding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM, vertical: AppConstants.paddingS),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -60,8 +60,8 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                         ),
                         const SizedBox(width: 4),
                         Icon(
-                          CupertinoIcons.slider_horizontal_3,
-                          size: 16,
+                          HugeIcons.strokeRoundedFilterVertical,
+                          size: 14,
                           color: ThemeHelper.textPrimary,
                         ),
                       ],
@@ -69,12 +69,23 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                   ),
                 ],
               ),
-              
-              const SizedBox(height: 24),
-              
-              // Tab Bar
-              SizedBox(
-                height: 32,
+            ),
+            
+            const SizedBox(height: AppConstants.paddingL),
+            
+            // Tab Bar
+            Padding(
+              padding: const EdgeInsets.only(left: AppConstants.paddingM),
+              child: Container(
+                decoration: BoxDecoration(
+                 border: Border(
+                  bottom: BorderSide(
+                    color: ThemeHelper.border,
+                    width: 1,
+                  ),
+                  ),
+                ),
+                height: 25,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: tabs.length,
@@ -102,7 +113,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                             const SizedBox(height: 8),
                             Container(
                               height: 2,
-                              width: tabs[index].length * 8.0,
+                              width: tabs[index].length * 7.0,
                               decoration: BoxDecoration(
                                 color: isSelected 
                                   ? (ThemeHelper.textPrimary)
@@ -117,11 +128,14 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                   },
                 ),
               ),
-              
-              const SizedBox(height: 24),
-              
-              // Stock List
-              AppDecorations.premiumCard(
+            ),
+            
+            const SizedBox(height: 24),
+            
+            // Stock List
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+              child: AppDecorations.premiumCard(
                 padding: const EdgeInsets.all(1),
                 innerPadding: EdgeInsets.zero,
                 child: Column(
@@ -135,6 +149,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       isPositive: true,
                       hasChart: true,
                       themeProvider: widget.themeProvider,
+                      companyLogoUrl: 'https://logo.clearbit.com/apple.com',
                     ),
                     StockListItem(
                       symbol: 'GOOG',
@@ -145,6 +160,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       isPositive: true,
                       hasChart: true,
                       themeProvider: widget.themeProvider,
+                      companyLogoUrl: 'https://logo.clearbit.com/google.com',
                     ),
                     StockListItem(
                       symbol: 'NVDA',
@@ -155,6 +171,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       isPositive: false,
                       hasChart: true,
                       themeProvider: widget.themeProvider,
+                      companyLogoUrl: 'https://logo.clearbit.com/nvidia.com',
                     ),
                     StockListItem(
                       symbol: 'TSLA',
@@ -165,6 +182,7 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       isPositive: false,
                       hasChart: true,
                       themeProvider: widget.themeProvider,
+                      companyLogoUrl: 'https://logo.clearbit.com/tesla.com',
                     ),
                     StockListItem(
                       symbol: 'AMD',
@@ -176,40 +194,41 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       hasChart: true,
                       isLast: true,
                       themeProvider: widget.themeProvider,
+                      companyLogoUrl: 'https://logo.clearbit.com/amd.com',
                     ),
                   ],
                 ),
               ),
-              
-              const SizedBox(height: 16),
-              
-              // See all button
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    // Handle see all
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'See all',
-                        style: ThemeHelper.caption.copyWith(
-                          color: ThemeHelper.textSecondary,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Icon(
-                        CupertinoIcons.arrow_right,
-                        size: 16,
+            ),
+            
+            const SizedBox(height: 16),
+            
+            // See all button
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  // Handle see all
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'See all',
+                      style: ThemeHelper.caption.copyWith(
                         color: ThemeHelper.textSecondary,
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(
+                      CupertinoIcons.arrow_right,
+                      size: 16,
+                      color: ThemeHelper.textSecondary,
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

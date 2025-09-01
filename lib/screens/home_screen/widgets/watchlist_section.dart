@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
-import 'package:trades/constants/decorations.dart';
+import 'package:trades/widgets/common/decorations.dart';
+import 'package:trades/widgets/common/custom_image.dart';
 
 class WatchlistSection extends StatelessWidget {
   final ThemeProvider themeProvider;
@@ -24,6 +25,7 @@ class WatchlistSection extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: AppConstants.paddingS),
             // Section Header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
@@ -45,6 +47,7 @@ class WatchlistSection extends StatelessWidget {
                       'View All',
                       style: ThemeHelper.caption.copyWith(
                         color: ThemeHelper.primary,
+                        decoration: TextDecoration.underline,
                       ),
                     ),
                   ),
@@ -56,7 +59,7 @@ class WatchlistSection extends StatelessWidget {
             
             // Watchlist Cards
             SizedBox(
-              height: 168,
+              height: 165,
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
                 scrollDirection: Axis.horizontal,
@@ -86,19 +89,72 @@ class WatchlistSection extends StatelessWidget {
                     change: '+6.09',
                     changePercent: '+0.30%',
                     isPositive: true,
+                    companyLogoUrl: 'https://logo.clearbit.com/apple.com',
                   ),
                   
                   _buildWatchlistCard(
-                    symbol: 'AAPL',
-                    companyName: 'Apple Inc',
-                    price: '\$7423.78',
-                    change: '+6.09',
-                    changePercent: '+0.30%',
+                    symbol: 'GOOGL',
+                    companyName: 'Alphabet Inc',
+                    price: '\$185.50',
+                    change: '-2.15',
+                    changePercent: '-1.15%',
+                    isPositive: false,
+                    companyLogoUrl: 'https://logo.clearbit.com/google.com',
+                  ),
+                  
+                  _buildWatchlistCard(
+                    symbol: 'MSFT',
+                    companyName: 'Microsoft Corp',
+                    price: '\$415.22',
+                    change: '+8.45',
+                    changePercent: '+2.08%',
                     isPositive: true,
+                    companyLogoUrl: 'https://logo.clearbit.com/microsoft.com',
+                  ),
+                  
+                  _buildWatchlistCard(
+                    symbol: 'TSLA',
+                    companyName: 'Tesla Inc',
+                    price: '\$248.50',
+                    change: '-12.30',
+                    changePercent: '-4.72%',
+                    isPositive: false,
+                    companyLogoUrl: 'https://logo.clearbit.com/tesla.com',
+                  ),
+                  
+                  _buildWatchlistCard(
+                    symbol: 'AMZN',
+                    companyName: 'Amazon.com Inc',
+                    price: '\$178.12',
+                    change: '+3.25',
+                    changePercent: '+1.86%',
+                    isPositive: true,
+                    companyLogoUrl: 'https://logo.clearbit.com/amazon.com',
+                  ),
+                  
+                  _buildWatchlistCard(
+                    symbol: 'META',
+                    companyName: 'Meta Platforms',
+                    price: '\$485.58',
+                    change: '+15.67',
+                    changePercent: '+3.34%',
+                    isPositive: true,
+                    companyLogoUrl: 'https://logo.clearbit.com/meta.com',
+                  ),
+                  
+                  _buildWatchlistCard(
+                    symbol: 'NVDA',
+                    companyName: 'NVIDIA Corp',
+                    price: '\$875.28',
+                    change: '+22.45',
+                    changePercent: '+2.63%',
+                    isPositive: true,
+                    companyLogoUrl: 'https://logo.clearbit.com/nvidia.com',
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: AppConstants.paddingL),
           ],
         );
       },
@@ -112,58 +168,61 @@ class WatchlistSection extends StatelessWidget {
     required String change,
     required String changePercent,
     required bool isPositive,
+    String? companyLogoUrl,
   }) {
     return AppDecorations.watchlistCard(
+      width: 180,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Company Icon and Symbol
           Row(
             children: [
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF000000),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Center(
-                  child: Text(
-                    '',
-                    style: ThemeHelper.caption.copyWith(
-                      color: CupertinoColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
+              // Company Logo using CustomImage
+              CustomImage(
+                imageUrl: companyLogoUrl,
+                width: 40,
+                height: 40,
+                borderRadius: AppConstants.borderRadiusCircle,
+                placeholderImage: 'assets/images/trades_logo.png',
+                fit: BoxFit.cover,
+                showShimmer: true,
+                onImageLoaded: () => debugPrint('Company logo loaded for $symbol'),
+                onImageError: () => debugPrint('Company logo failed for $symbol'),
               ),
               const SizedBox(width: 8),
-              Text(
-                symbol,
-                style: ThemeHelper.caption.copyWith(
-                  color: ThemeHelper.textSecondary,
-                  fontWeight: FontWeight.w500,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      companyName,
+                      style: ThemeHelper.body2.copyWith(
+                        color: ThemeHelper.textPrimary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      symbol,
+                      style: ThemeHelper.caption.copyWith(
+                        color: ThemeHelper.textSecondary,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          
-          const SizedBox(height: 8),
-          
-          // Company Name
-          Text(
-            companyName,
-            style: ThemeHelper.caption.copyWith(
-              color: ThemeHelper.textPrimary,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          
           const SizedBox(height: 12),
-          
+        
           // Mini Chart
-          Container(
+          SizedBox(
             height: 30,
             child: CustomPaint(
               painter: MiniChartPainter(isPositive: isPositive),
@@ -171,7 +230,7 @@ class WatchlistSection extends StatelessWidget {
             ),
           ),
           
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           
           // Price
           Text(
@@ -183,6 +242,7 @@ class WatchlistSection extends StatelessWidget {
             ),
           ),
           
+          const SizedBox(height: 4),
           // Change
           Row(
             children: [

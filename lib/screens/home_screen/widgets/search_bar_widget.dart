@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:trades/constants/decorations.dart';
+import 'package:trades/constants/app_constants.dart';
+import 'package:trades/widgets/common/decorations.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 
@@ -30,7 +31,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         ThemeHelper.updateSystemBrightness(systemBrightness);
         
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.all(AppConstants.paddingS),
           child: Row(
             children: [
               Expanded(

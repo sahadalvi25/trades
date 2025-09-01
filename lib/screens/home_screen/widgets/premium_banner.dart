@@ -23,7 +23,7 @@ class PremiumBanner extends StatelessWidget {
         
         return Container(
           clipBehavior: Clip.hardEdge,
-          margin: const EdgeInsets.all(16),
+          margin: const EdgeInsets.all(AppConstants.paddingM),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [
