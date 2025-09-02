@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:intl/intl.dart';
 import 'package:trades/constants/app_constants.dart';
 import 'package:trades/constants/theme_helper.dart';
+import 'package:trades/widgets/common/decorations.dart';
 
 class PriceSectionWidget extends StatefulWidget {
   final double price;
@@ -75,7 +76,7 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              '\$${widget.price.toStringAsFixed(2)}',
+              NumberFormat.currency(locale: 'en_US', symbol: '\$').format(widget.price),
               style: ThemeHelper.body1.copyWith(
                 color: ThemeHelper.textPrimary, 
                 fontWeight: FontWeight.w600,
@@ -94,7 +95,7 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
         Row(
           children: [
             Text(
-              '${widget.changePrefix}${widget.change.toStringAsFixed(2)}',
+              '${widget.changePrefix}${NumberFormat.currency(locale: 'en_US', symbol: '', decimalDigits: 2).format(widget.change)}',
               style: ThemeHelper.caption.copyWith(color: widget.changeColor),
             ),
             const SizedBox(width: 6),
@@ -115,7 +116,7 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
             _buildChartSection(),
             Positioned(
               right: 0,
-              bottom: 0,
+              bottom: 32,
               child: _buildChartToggle(),
             ),
           ],
@@ -145,18 +146,11 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
             _isLineChart = !_isLineChart;
           });
         },
-        child: Container(
-          width: 36,
-          height: 36,
-          padding: const EdgeInsets.all(AppConstants.paddingXS),
-          decoration: BoxDecoration(
-            color: ThemeHelper.surface,
-            borderRadius: BorderRadius.circular(AppConstants.borderRadiusCircle),
-            border: Border.all(color: ThemeHelper.border, width: 1),
-          ),
+        child: AppDecorations.iconBadge(
+          size: 32,
           child: Icon(
-            _isLineChart ? HugeIcons.strokeRoundedChart : HugeIcons.strokeRoundedChart03,
-            color: ThemeHelper.textPrimary,
+            _isLineChart ? HugeIcons.strokeRoundedFilterVertical : HugeIcons.strokeRoundedChart03,
+            color: ThemeHelper.textPrimary.withOpacity(0.85),
             size: 20,
           ),
         ),
@@ -187,11 +181,18 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
           show: true,
           rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
           topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          bottomTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          bottomTitles:  AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              interval: 2,
+               getTitlesWidget: (value, meta) {
+                return _buildPriceLabel(value.toInt());
+              },
+              )),
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 52,
+              reservedSize: 40,
               interval: 120,
               getTitlesWidget: (value, meta) {
                 return _buildPriceLabel(value.toInt());
@@ -281,11 +282,6 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
   Widget _buildPriceLabel(int price) {
     return Container(
       margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(8),
-      ),
       child: Center(
         child: Text(
           price.toString(),
@@ -294,6 +290,7 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
             fontSize: 10,
             fontWeight: FontWeight.w500,
           ),
+          textAlign: TextAlign.left,
         ),
       ),
     );
@@ -308,11 +305,18 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
           show: true,
           rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
           topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          bottomTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          bottomTitles:  AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              interval: 2,
+               getTitlesWidget: (value, meta) {
+                return _buildPriceLabel(value.toInt());
+              },
+              )),
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 52,
+              reservedSize: 40,
               interval: 120,
               getTitlesWidget: (value, meta) {
                 return _buildPriceLabel(value.toInt());
@@ -346,3 +350,4 @@ class _PriceSectionWidgetState extends State<PriceSectionWidget> {
     );
   }
 }
+
