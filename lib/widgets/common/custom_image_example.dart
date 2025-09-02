@@ -67,6 +67,7 @@ class CustomImageExample extends StatelessWidget {
                 imageUrl: 'assets/images/trades_logo.png',
                 width: 100,
                 height: 100,
+                fit: BoxFit.contain,
                 isNetworkImage: false,
               ).square(size: 100),
               

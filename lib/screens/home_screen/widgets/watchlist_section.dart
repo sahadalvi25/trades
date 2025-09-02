@@ -5,6 +5,7 @@ import 'package:trades/constants/theme_provider.dart';
 import 'package:trades/widgets/common/decorations.dart';
 import 'package:trades/widgets/common/custom_image.dart';
 import 'package:trades/widgets/common/mini_line_chart.dart';
+import '../../stock_detail/stock_detail_screen.dart';
 
 class WatchlistSection extends StatelessWidget {
   final ThemeProvider themeProvider;
@@ -84,6 +85,7 @@ class WatchlistSection extends StatelessWidget {
                   
                   // Apple Stock Cards
                   _buildWatchlistCard(
+                    context: context,
                     symbol: 'AAPL',
                     companyName: 'Apple Inc',
                     price: 7423.78,
@@ -94,6 +96,7 @@ class WatchlistSection extends StatelessWidget {
                   ),
                   
                   _buildWatchlistCard(
+                    context: context,
                     symbol: 'GOOGL',
                     companyName: 'Alphabet Inc',
                     price: 185.50,
@@ -104,6 +107,7 @@ class WatchlistSection extends StatelessWidget {
                   ),
                   
                   _buildWatchlistCard(
+                    context: context,
                     symbol: 'MSFT',
                     companyName: 'Microsoft Corp',
                     price: 415.22,
@@ -114,6 +118,7 @@ class WatchlistSection extends StatelessWidget {
                   ),
                   
                   _buildWatchlistCard(
+                    context: context,
                     symbol: 'TSLA',
                     companyName: 'Tesla Inc',
                     price: 248.50,
@@ -124,6 +129,7 @@ class WatchlistSection extends StatelessWidget {
                   ),
                   
                   _buildWatchlistCard(
+                    context: context,
                     symbol: 'AMZN',
                     companyName: 'Amazon.com Inc',
                     price: 178.12,
@@ -134,6 +140,7 @@ class WatchlistSection extends StatelessWidget {
                   ),
                   
                   _buildWatchlistCard(
+                    context: context,
                     symbol: 'META',
                     companyName: 'Meta Platforms',
                     price: 485.58,
@@ -144,6 +151,7 @@ class WatchlistSection extends StatelessWidget {
                   ),
                   
                   _buildWatchlistCard(
+                    context: context,
                     symbol: 'NVDA',
                     companyName: 'NVIDIA Corp',
                     price: 875.28,
@@ -163,6 +171,7 @@ class WatchlistSection extends StatelessWidget {
   }
 
   Widget _buildWatchlistCard({
+    required BuildContext context,
     required String symbol,
     required String companyName,
     required double price,
@@ -171,7 +180,22 @@ class WatchlistSection extends StatelessWidget {
     required bool isPositive,
     String? companyLogoUrl,
   }) {
-    return AppDecorations.watchlistCard(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(CupertinoPageRoute(
+          builder: (_) => StockDetailScreen(
+            themeProvider: themeProvider,
+            symbol: symbol,
+            companyName: companyName,
+            market: 'NASDAQ',
+            price: price,
+            change: isPositive ? 6.09 : -2.15,
+            changePercent: isPositive ? 0.30 : -1.15,
+            companyLogoUrl: companyLogoUrl,
+          ),
+        ));
+      },
+      child: AppDecorations.watchlistCard(
       width: 180,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,6 +291,7 @@ class WatchlistSection extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }

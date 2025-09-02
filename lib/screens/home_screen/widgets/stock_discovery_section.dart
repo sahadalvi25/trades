@@ -5,6 +5,7 @@ import 'package:trades/widgets/common/decorations.dart';
 import 'package:trades/constants/theme_helper.dart';
 import 'package:trades/constants/theme_provider.dart';
 import '../../../widgets/common/stock_list_item.dart';
+import '../../stock_detail/stock_detail_screen.dart';
 
 class StockDiscoverySection extends StatefulWidget {
   final ThemeProvider themeProvider;
@@ -151,6 +152,20 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       hasChart: true,
                       themeProvider: widget.themeProvider,
                       companyLogoUrl: 'https://logo.clearbit.com/apple.com',
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (_) => StockDetailScreen(
+                            themeProvider: widget.themeProvider,
+                            symbol: 'AAPL',
+                            companyName: 'Apple Inc.',
+                            market: 'NASDAQ',
+                            price: 346,
+                            change: 11.97,
+                            changePercent: 0.14,
+                            companyLogoUrl: 'https://logo.clearbit.com/apple.com',
+                          ),
+                        ));
+                      },
                     ),
                     StockListItem(
                       symbol: 'GOOG',
@@ -162,6 +177,20 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       hasChart: true,
                       themeProvider: widget.themeProvider,
                       companyLogoUrl: 'https://logo.clearbit.com/google.com',
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (_) => StockDetailScreen(
+                            themeProvider: widget.themeProvider,
+                            symbol: 'GOOGL',
+                            companyName: 'Alphabet, Inc.',
+                            market: 'NASDAQ',
+                            price: 346,
+                            change: 11.97,
+                            changePercent: 0.14,
+                            companyLogoUrl: 'https://logo.clearbit.com/google.com',
+                          ),
+                        ));
+                      },
                     ),
                     StockListItem(
                       symbol: 'NVDA',
@@ -173,6 +202,20 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       hasChart: true,
                       themeProvider: widget.themeProvider,
                       companyLogoUrl: 'https://logo.clearbit.com/nvidia.com',
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (_) => StockDetailScreen(
+                            themeProvider: widget.themeProvider,
+                            symbol: 'NVDA',
+                            companyName: 'NVIDIA Corp.',
+                            market: 'NASDAQ',
+                            price: 875.28,
+                            change: 22.45,
+                            changePercent: 2.63,
+                            companyLogoUrl: 'https://logo.clearbit.com/nvidia.com',
+                          ),
+                        ));
+                      },
                     ),
                     StockListItem(
                       symbol: 'TSLA',
@@ -184,6 +227,20 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       hasChart: true,
                       themeProvider: widget.themeProvider,
                       companyLogoUrl: 'https://logo.clearbit.com/tesla.com',
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (_) => StockDetailScreen(
+                            themeProvider: widget.themeProvider,
+                            symbol: 'TSLA',
+                            companyName: 'Tesla, Inc.',
+                            market: 'NASDAQ',
+                            price: 248.50,
+                            change: -12.30,
+                            changePercent: -4.72,
+                            companyLogoUrl: 'https://logo.clearbit.com/tesla.com',
+                          ),
+                        ));
+                      },
                     ),
                     StockListItem(
                       symbol: 'AMD',
@@ -196,6 +253,20 @@ class _StockDiscoverySectionState extends State<StockDiscoverySection> {
                       isLast: true,
                       themeProvider: widget.themeProvider,
                       companyLogoUrl: 'https://logo.clearbit.com/amd.com',
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (_) => StockDetailScreen(
+                            themeProvider: widget.themeProvider,
+                            symbol: 'AMD',
+                            companyName: 'Advanced Micro Devices',
+                            market: 'NASDAQ',
+                            price: 178.12,
+                            change: 3.25,
+                            changePercent: 1.86,
+                            companyLogoUrl: 'https://logo.clearbit.com/amd.com',
+                          ),
+                        ));
+                      },
                     ),
                   ],
                 ),

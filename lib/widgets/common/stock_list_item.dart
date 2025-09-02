@@ -16,6 +16,7 @@ class StockListItem extends StatelessWidget {
   final bool isLast;
   final ThemeProvider themeProvider;
   final String? companyLogoUrl;
+  final VoidCallback? onTap;
 
   const StockListItem({
     super.key,
@@ -29,6 +30,7 @@ class StockListItem extends StatelessWidget {
     this.hasChart = false,
     this.isLast = false,
     this.companyLogoUrl,
+    this.onTap,
   });
 
   @override
@@ -40,18 +42,23 @@ class StockListItem extends StatelessWidget {
         final systemBrightness = MediaQuery.platformBrightnessOf(context);
         ThemeHelper.updateSystemBrightness(systemBrightness);
         
-        return Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            border: isLast ? null : Border(
-              bottom: BorderSide(
-                color: ThemeHelper.border,
-                width: 0.5,
-              ),
+        return GestureDetector(
+          onTap: onTap,
+          behavior: HitTestBehavior.opaque,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: isLast
+                  ? null
+                  : Border(
+                      bottom: BorderSide(
+                        color: ThemeHelper.border,
+                        width: 0.5,
+                      ),
+                    ),
             ),
-          ),
-          child: Row(
-            children: [
+            child: Row(
+              children: [
               // Company Icon
               CustomImage(
                 imageUrl: companyLogoUrl,
@@ -137,7 +144,8 @@ class StockListItem extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+              ],
+            ),
           ),
         );
       },
